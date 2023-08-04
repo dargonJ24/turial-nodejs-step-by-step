@@ -9,7 +9,9 @@ II/Libaray
 - npm i express
 - npm i nodemon
 - npm i express-handlebars
-- 
+- npm install mongodb
+- npm i mongoose
+- npm i dotenv
 III/ problems
 
 IV/ Summerary
