@@ -1,5 +1,6 @@
 import express from "express"
 import { engine} from 'express-handlebars'
+import routes from './routes/index.js'
 const app=express()
 //setup static file
 app.use(express.static('src/public'))
@@ -15,9 +16,7 @@ put : update  require full filed
 path : update only  filed you want update
 delete : delete data
 */
-app.get("/",(req,res)=>{
-  res.render('home',{isshow: false})
-})
+routes(app)
 app.listen(port,()=>{
   console.log(`http://localhost:${port}`)
 })
