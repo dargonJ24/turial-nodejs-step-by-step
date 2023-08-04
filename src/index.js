@@ -14,7 +14,7 @@ path : update only  filed you want update
 delete : delete data
 */
 app.get("/",(req,res)=>{
-  res.render('home')
+  res.render('home',{isshow: true})
 })
 app.listen(port,()=>{
   console.log(`http://localhost:${port}`)
