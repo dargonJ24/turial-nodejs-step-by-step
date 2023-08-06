@@ -12,6 +12,7 @@ II/Libaray
 - npm install mongodb
 - npm i mongoose
 - npm i dotenv
+- npm i bcrypt
 III/ problems
 - req.body {} : check lai express.json() , request must format json
 IV/ Summerary

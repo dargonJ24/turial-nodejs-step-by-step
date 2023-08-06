@@ -1,4 +1,5 @@
 import {User} from '../models/userModel.js'
+import bcrypt from "bcrypt";
 export const userController=(req,res)=>{
     res.send("User page")
 }
@@ -6,7 +7,7 @@ export const detailsUserController=(req,res)=>{
     res.send("User detail page")
 }
 export const createuserControler = async (req, res) => {
-    const {email,password,name}=req.body
+    var {email,password,name}=req.body
     try{
         if(email && password && name)
         {
@@ -23,14 +24,19 @@ export const createuserControler = async (req, res) => {
                         message:'The name or user is existed'
                     })
                 }
+                const hashpassword =bcrypt.hashSync(password,10)
                 const newUser= await User.create({
                     email,
                     name,
-                    password
+                    password:hashpassword
                 })
+                
                 return res.json({
                     status:"OKE",
-                    data: newUser
+                    data: {
+                        email:newUser.email,
+                        name:newUser.name
+                    }
                 })
 
             }else{
