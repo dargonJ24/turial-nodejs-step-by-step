@@ -6,6 +6,8 @@ import * as dotenv from 'dotenv'
 dotenv.config()
 
 const app=express()
+// api return json
+app.use(express.json())
 //setup static file
 app.use(express.static('src/public'))
 //setup express-handlebar
