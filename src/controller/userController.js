@@ -14,6 +14,15 @@ export const createuserControler = async (req, res) => {
             const isEmail=mailformat.test(email)
             if(isEmail)
             {
+                const ischeckEmail= await User.find({email:email})
+                const ischeckName=await User.find({name})
+                if(ischeckEmail.length >0 || ischeckName.length>0)
+                {
+                    return res.json({
+                        status:'err',
+                        message:'The name or user is existed'
+                    })
+                }
                 const newUser= await User.create({
                     email,
                     name,
@@ -24,6 +33,11 @@ export const createuserControler = async (req, res) => {
                     data: newUser
                 })
 
+            }else{
+                return res.json({
+                    status:'err',
+                    message:'user not email'
+                })
             }
           
 
