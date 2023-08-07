@@ -4,7 +4,7 @@ import { loginUserServie } from "../service/userService.js"
 const router =express.Router()
 
 router.get("/details",userController)
-router.get("/",detailsUserController)
+router.get("/:Userid",detailsUserController)
 router.post("/login",loginuserControler)
 router.post("/",createuserControler)
 

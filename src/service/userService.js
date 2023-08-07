@@ -1,5 +1,30 @@
 import {User} from '../models/userModel.js'
 import bcrypt from "bcrypt";
+export const getDetailUserService = (Userid) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        console.log("Userid-B2", Userid);
+        const findUser = await User.findById(Userid);
+        console.log(findUser, Userid);
+        if (findUser) {
+          resolve({
+            status: 'ok',
+            data: findUser
+          });
+        } else {
+          resolve({
+            status: 'OK',
+            message: 'The user is not defined'
+          });
+        }
+      } catch (err) {
+        reject({
+          status: 'error',
+          message: err
+        });
+      }
+    });
+  };
 export const loginUserServie =({email,password})=>{
    
     return new Promise(async (resolve,reject)=>{
@@ -31,12 +56,12 @@ export const loginUserServie =({email,password})=>{
             }else{
                 return resolve({
                     status:'err',
-                    message:'user not exist'
+                    status:'user not exist'
                 })
             }
         }catch(error){
             reject({
-                message:'err',
+                status:'err',
                 status:'err'
             })
 
@@ -57,7 +82,7 @@ export const createUserServie =({email,password,name})=>{
                 {
                    resolve({
                         status:'err',
-                        message:'The name or user is existed'
+                        status:'The name or user is existed'
                     })
                 }
                 const hashpassword =bcrypt.hashSync(password,10)
@@ -78,12 +103,12 @@ export const createUserServie =({email,password,name})=>{
             }else{
                 return resolve({
                     status:'err',
-                    message:'user not email'
+                    status:'user not email'
                 })
             }
         }catch(error){
             reject({
-                message:'err',
+                status:'err',
                 status:'err'
             })
 

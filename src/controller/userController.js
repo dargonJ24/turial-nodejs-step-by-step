@@ -1,6 +1,20 @@
 import {User} from '../models/userModel.js'
 import bcrypt from "bcrypt";
-import { createUserServie, loginUserServie } from '../service/userService.js';
+import { createUserServie, loginUserServie,getDetailUserService } from '../service/userService.js';
+export const detailsUserController=async (req,res)=>{
+    console.log("req.params",req.params)
+    const {Userid} =req.params
+    if(Userid){
+        console.log("req.params-B1",Userid)
+       const response = await getDetailUserService(Userid)
+       return res.json(response)
+    }
+    return res.json({
+        statu:"OK",
+        message:"the id require"
+    })
+   
+}
 export const loginuserControler = async (req, res) => {
     var {email,password}=req.body
     if(email && password)
@@ -18,9 +32,7 @@ export const loginuserControler = async (req, res) => {
 export const userController=(req,res)=>{
     res.send("User page")
 }
-export const detailsUserController=(req,res)=>{
-    res.send("User detail page")
-}
+
 export const createuserControler = async (req, res) => {
     var {email,password,name}=req.body
     if(email && password && name)
