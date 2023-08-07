@@ -9,21 +9,29 @@ export const loginUserServie =({email,password})=>{
             if(isEmail)
             {
                 const userDB= await User.find({email:email})
-                const checkpassword= bcrypt.compareSync(password,userDB[0].password)
-                console.log(checkpassword)
+                const checkpassword= bcrypt.compareSync(password,userDB[0].password) // serDB[0].password request data object find
+                console.log(checkpassword) 
                 
-                resolve({
-                    status:"OKE",
-                    data: {
-                        email:newUser.email,
-                        name:newUser.name
-                    }
-                })
+                if(userDB){
+                    if(checkpassword)
+                   {
+                    console.log("login sucesss")
+                    resolve({
+                        status:"OKE",
+                        data:{
+                           emal: userDB[0].email, 
+                            name: userDB[0].name
+                        }
+                    })
+                   }
+                 
+                }
+                
 
             }else{
                 return resolve({
                     status:'err',
-                    message:'user not email'
+                    message:'user not exist'
                 })
             }
         }catch(error){
