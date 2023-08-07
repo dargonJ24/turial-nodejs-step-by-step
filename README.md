@@ -17,3 +17,5 @@ III/ problems
 - req.body {} : check lai express.json() , request must format json
 IV/ Summerary
 -  API : for example in restaurant , api role waiter , user through menu ( UI ) order food , after do , API will bring food to user
+- params : "user:id"
+- query :"search?name="Jon"

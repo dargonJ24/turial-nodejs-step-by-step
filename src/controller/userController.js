@@ -1,6 +1,31 @@
 import {User} from '../models/userModel.js'
 import bcrypt from "bcrypt";
-import { createUserServie, loginUserServie,getDetailUserService } from '../service/userService.js';
+import { createUserServie,
+     loginUserServie,
+     getDetailUserService,searchUserService } from '../service/userService.js';
+export const searchUserController=async(req,res)=>{
+   try{
+    const {name}=req.query
+    if(name){
+        const response = await searchUserService(name)
+        return res.json(response)
+    }else{
+        return res.json({
+            status :'err',
+            message: 'not name not exits '
+        })
+    
+
+    }
+
+   }catch(err){
+    console.log(err)
+    return res.json({
+        status:'err',
+        message:err
+    })
+   }
+}
 export const detailsUserController=async (req,res)=>{
     console.log("req.params",req.params)
     const {Userid} =req.params

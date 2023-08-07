@@ -1,5 +1,30 @@
 import {User} from '../models/userModel.js'
 import bcrypt from "bcrypt";
+export const searchUserService = (name) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const findUser = await User.findOne({ name: name });
+        console.log(findUser, name);
+        if (findUser) {
+          resolve({
+            status: 'ok',
+            data: findUser
+          });
+        } else {
+          resolve({
+            status: 'OK',
+            message: 'The user is not defined'
+          });
+        }
+      } catch (e) {
+        console.log(e);
+        reject({
+          message: e,
+          status: 'err'
+        });
+      }
+    });
+  };
 export const getDetailUserService = (Userid) => {
     return new Promise(async (resolve, reject) => {
       try {
