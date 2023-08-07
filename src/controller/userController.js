@@ -1,6 +1,20 @@
 import {User} from '../models/userModel.js'
 import bcrypt from "bcrypt";
-import { createUserServie } from '../service/userService.js';
+import { createUserServie, loginUserServie } from '../service/userService.js';
+export const loginuserControler = async (req, res) => {
+    var {email,password}=req.body
+    if(email && password)
+    {
+     const response = await loginUserServie({email,password})
+     return res.json(response)
+    }
+    else{
+        return res.json({
+        status :'err',
+        message: 'the email or passwords  not exits '
+    })
+
+    }}
 export const userController=(req,res)=>{
     res.send("User page")
 }

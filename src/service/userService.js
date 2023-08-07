@@ -1,5 +1,41 @@
 import {User} from '../models/userModel.js'
 import bcrypt from "bcrypt";
+export const loginUserServie =({email,password})=>{
+   
+    return new Promise(async (resolve,reject)=>{
+        try{
+            var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/g;
+            const isEmail=mailformat.test(email)
+            if(isEmail)
+            {
+                const userDB= await User.find({email:email})
+                const checkpassword= bcrypt.compareSync(password,userDB[0].password)
+                console.log(checkpassword)
+                
+                resolve({
+                    status:"OKE",
+                    data: {
+                        email:newUser.email,
+                        name:newUser.name
+                    }
+                })
+
+            }else{
+                return resolve({
+                    status:'err',
+                    message:'user not email'
+                })
+            }
+        }catch(error){
+            reject({
+                message:'err',
+                status:'err'
+            })
+
+        }
+    }).catch((e)=>console.log(e))
+
+}
 export const createUserServie =({email,password,name})=>{
     return new Promise(async (resolve,reject)=>{
         try{
@@ -24,11 +60,11 @@ export const createUserServie =({email,password,name})=>{
                 })
                 
                 resolve({
-                    status:"OKE",
-                    data: {
-                        email:newUser.email,
-                        name:newUser.name
-                    }
+                    // status:"OKE",
+                    // data: {
+                    //     email:newUser.email
+                        
+                    // }
                 })
 
             }else{
@@ -44,5 +80,5 @@ export const createUserServie =({email,password,name})=>{
             })
 
         }
-    })
+    }).catch((e)=>console.log(e))
 }
