@@ -2,7 +2,35 @@ import {User} from '../models/userModel.js'
 import bcrypt from "bcrypt";
 import { createUserServie,
      loginUserServie,
-     getDetailUserService,searchUserService } from '../service/userService.js';
+     getDetailUserService,searchUserService,updateUserService } from '../service/userService.js';
+export const updateUserController=async(req,res)=>{
+        try{
+         const {id} =req.params
+         const data= req.body
+         if(id && data){
+            const response =await updateUserService(id,data)
+            if(response){
+                return res.json(response)
+            }else{
+                return res.json({
+                    status:"err",
+                    message:"the server is problem"
+                })
+            }
+         }else{
+            return res.json({
+                status:'err',
+                message:'the id of user is required'
+            })
+         }
+        }catch(err){
+         console.log(err)
+         return res.json({
+             status:'err',
+             message:err
+         })
+        }
+     }
 export const searchUserController=async(req,res)=>{
    try{
     const {name}=req.query

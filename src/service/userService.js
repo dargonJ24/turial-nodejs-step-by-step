@@ -1,5 +1,24 @@
 import {User} from '../models/userModel.js'
 import bcrypt from "bcrypt";
+export const updateUserService = (id, data) => {
+  return new Promise(async (resolve, reject) => {
+    try {
+     
+      const updateUser=await User.findByIdAndUpdate(id,data)
+      console.log(updateUser)
+      resolve({
+        status: 'success',
+        message: 'User service updated successfully'
+      });
+    } catch (e) {
+      console.error(e);
+      reject({
+        status: 'error',
+        message: e
+      });
+    }
+  });
+};
 export const searchUserService = (name) => {
     return new Promise(async (resolve, reject) => {
       try {
