@@ -6,13 +6,15 @@ import { createuserControler,
     searchUserController,
     updateUserController,
     detetesUserController,
-    getAllUserController
+    getAllUserController,
+    detetesAllUserController
     
  } from "../controller/userController.js"
 const router =express.Router()
 router.get('/search',searchUserController)
 router.get('/getalluser',getAllUserController)
 router.delete('/delete/:id',detetesUserController)
+router.delete('/deleteAll',detetesAllUserController)
 router.patch('/update/:id',updateUserController)
 router.get("/details",userController)
 router.get("/:Userid",detailsUserController)

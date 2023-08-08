@@ -1,5 +1,22 @@
 import {User} from '../models/userModel.js'
 import bcrypt from "bcrypt";
+export const deleteAllUserService=(ids)=>{
+  return new Promise(async (resolve,reject)=>{
+    try{
+      console.log(ids)
+     const deleteallUser = await User.deleteMany({_id:ids})
+     resolve({
+      status:'OK',
+      data:deleteallUser
+     })
+    }catch(e){
+      reject({
+        status:'err',
+        message:e
+      })
+    }
+  })
+}
 export const getAllUserService=()=>{
   return new Promise(async (resolve,reject)=>{
     try{

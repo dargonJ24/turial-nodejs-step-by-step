@@ -6,8 +6,25 @@ import { createUserServie,
      searchUserService,
      updateUserService,
      deleteUserService,
-     getAllUserService
+     getAllUserService,
+     deleteAllUserService
      } from '../service/userService.js';
+export const detetesAllUserController=async(req,res)=>{
+    const {id} =req.query
+    try{
+        const response =await deleteAllUserService(id)
+        return res.status(200).json({
+            data:response,
+            status:'Ok'
+        })
+
+    }catch(e){
+        return res.status(400).json({
+            message:e,
+            status:'err'
+        })
+    }
+}
 export const getAllUserController =async(req,res)=>{
     try{
         const response =await getAllUserService()
