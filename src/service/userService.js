@@ -1,5 +1,21 @@
 import {User} from '../models/userModel.js'
 import bcrypt from "bcrypt";
+export const getAllUserService=()=>{
+  return new Promise(async (resolve,reject)=>{
+    try{
+     const allUser = await User.find()
+     resolve({
+      status:'OK',
+      data:allUser
+     })
+    }catch(e){
+      reject({
+        status:'err',
+        message:e
+      })
+    }
+  })
+}
 export const deleteUserService=async (_id)=>{
   return new Promise(async (resolve, reject) => {
     try {

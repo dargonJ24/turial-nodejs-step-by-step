@@ -5,8 +5,23 @@ import { createUserServie,
      getDetailUserService,
      searchUserService,
      updateUserService,
-     deleteUserService
+     deleteUserService,
+     getAllUserService
      } from '../service/userService.js';
+export const getAllUserController =async(req,res)=>{
+    try{
+        const response =await getAllUserService()
+        return res.status(200).json({
+            data:response,
+            status:'OK'
+        })
+    }catch(e){
+        return res.status(400).json({
+            message:e,
+            status:'err'
+        })
+    }
+}
 export const detetesUserController=async(req,res)=>{
     try{
         const _id=req.params.id
