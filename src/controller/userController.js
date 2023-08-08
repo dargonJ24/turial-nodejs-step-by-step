@@ -2,7 +2,33 @@ import {User} from '../models/userModel.js'
 import bcrypt from "bcrypt";
 import { createUserServie,
      loginUserServie,
-     getDetailUserService,searchUserService,updateUserService } from '../service/userService.js';
+     getDetailUserService,
+     searchUserService,
+     updateUserService,
+     deleteUserService
+     } from '../service/userService.js';
+export const detetesUserController=async(req,res)=>{
+    try{
+        const _id=req.params.id
+        if(_id){
+            const response = await deleteUserService(_id)
+            return res.status(200).json(response)
+
+        }else{
+            return res.status(404).json({
+                status:'err',
+                message:'the userid is required'
+
+            })
+        }
+
+    }catch(error){
+        return res.status(404).json({
+            status:'err',
+            message:error
+        })
+    }
+}
 export const updateUserController=async(req,res)=>{
         try{
          const {id} =req.params

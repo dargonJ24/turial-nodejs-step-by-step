@@ -1,5 +1,33 @@
 import {User} from '../models/userModel.js'
 import bcrypt from "bcrypt";
+export const deleteUserService=async (_id)=>{
+  return new Promise(async (resolve, reject) => {
+    try {
+      const deleteUser =await User.findByIdAndDelete(_id)
+      if(deleteUser){
+        resolve({
+          status:'OK',
+          data:deleteUser
+        })
+      }
+      else{
+        resolve({
+          status: 'err',
+          message: 'the user not define'
+        });
+      }
+      
+    } catch (e) {
+      console.error(e);
+      reject({
+        status: 'error',
+        message: e
+      });
+    }
+  });
+ 
+  }
+
 export const updateUserService = (id, data) => {
   return new Promise(async (resolve, reject) => {
     try {
