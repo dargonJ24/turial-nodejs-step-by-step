@@ -3,13 +3,28 @@ import bcrypt from "bcrypt";
 export const updateUserService = (id, data) => {
   return new Promise(async (resolve, reject) => {
     try {
-     
+      const checkUser = await User.findOne(data)
+      if(checkUser){
+        resolve({
+          status:'err',
+          message:"the info of user is duplicate"
+        })
+      }
       const updateUser=await User.findByIdAndUpdate(id,data)
       console.log(updateUser)
-      resolve({
-        status: 'success',
-        message: 'User service updated successfully'
-      });
+      if(updateUser){
+        const getnewUser= await getDetailUserService(id)
+        resolve({
+          status: 'success',
+         data :getnewUser
+        });
+      }else{
+        resolve({
+          status: 'err',
+          message: 'the user not define'
+        });
+      }
+      
     } catch (e) {
       console.error(e);
       reject({
