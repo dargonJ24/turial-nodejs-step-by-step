@@ -1,6 +1,32 @@
 import {User} from '../models/userModel.js'
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"
+export const RefreshService = (token) => {
+  console.log("service: token",token)
+  return new Promise((resolve, reject) => {
+    try {
+      jwt.verify(token, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
+        if (err) {
+          resolve({ message: err });
+        } else {
+          if (user) {
+            console.log(user);
+            const newAcessToken=generalAcessToken({isAdmin: user.isAdmin,_id:user._id})
+
+            resolve({
+              status:"OK",
+              access_token: newAcessToken
+            })
+          } else {
+            resolve({ message: "The user is not authenticated" });
+          }
+        }
+      });
+    } catch (error) {
+      reject(error);
+    }
+  });
+};
 export const deleteAllUserService=(ids)=>{
   return new Promise(async (resolve,reject)=>{
     try{
@@ -146,6 +172,14 @@ export const getDetailUserService = (Userid) => {
       }
     });
   };
+const generalAcessToken=(data)=>{
+  const access_token =jwt.sign(data,process.env.ACCESS_TOKEN_SERECT,{expiresIn:'30m'})
+  return access_token
+}
+const generalRefreshToken=(data)=>{
+  const access_token =jwt.sign(data,process.env.REFRESH_TOKEN_SECRET,{expiresIn:'365d'})
+  return access_token
+}
 export const loginUserServie =({email,password})=>{
    
     return new Promise(async (resolve,reject)=>{
@@ -161,15 +195,25 @@ export const loginUserServie =({email,password})=>{
                 if(userDB){
                     if(checkpassword)
                    {
-                    const access_token=jwt.sign({isAdmin:userDB[0].isAdmin,_id : userDB[0]._id},'access_token',{expiresIn:'30m'})
-                    console.log(access_token)
+                    const access_token=generalAcessToken({isAdmin: userDB[0].isAdmin,_id:userDB[0]._id})
+                    const refresh_token=generalRefreshToken({isAdmin: userDB[0].isAdmin,_id:userDB[0]._id})
+                    console.log("access_token",access_token)
+                    console.log("refresh_token",refresh_token)
                     resolve({
                         status:"OKE",
-                        data:access_token
+                        data:{
+                          access_token,refresh_token
+                        }
                     })
-                   }
+                   }else{
+                    return resolve({
+                        status:'err',
+                        status:'pass err'
+                    })
                  
                 }
+              }
+
                 
 
             }else{

@@ -7,7 +7,7 @@ import { createuserControler,
     updateUserController,
     detetesUserController,
     getAllUserController,
-    detetesAllUserController
+    detetesAllUserController,userRefreshController
     
  } from "../controller/userController.js"
 import authMiddleware from "../middleware/authMiddleware.js"
@@ -20,6 +20,6 @@ router.patch('/update/:id',updateUserController)
 router.get("/details",userController)
 router.get("/:Userid",detailsUserController)
 router.post("/login",loginuserControler)
+router.post("/refreshToken",userRefreshController)
 router.post("/",createuserControler)
-
 export default router

@@ -3,9 +3,13 @@ const authMiddleware =(req,res,next) =>{
   //console.log("req.header",req.headers) // print request header
   const token = req.headers.token.split(' ')[1];
    // note header request format :  token : bearer code_token
-   console.log("token",token)
+   if(!token){
+    return res.status(404).json({
+        message:'Token is valid'
+    })
+   }
    
-   jwt.verify(token,'access_token',function(err,user){
+   jwt.verify(token,process.env.ACCESS_TOKEN_SERECT,function(err,user){
     if(err){
         return res.status(404).json({
             message:"the user is not authemtication"

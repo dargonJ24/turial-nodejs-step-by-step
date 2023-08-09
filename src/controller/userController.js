@@ -7,8 +7,32 @@ import { createUserServie,
      updateUserService,
      deleteUserService,
      getAllUserService,
-     deleteAllUserService
+     deleteAllUserService,
+     RefreshService
      } from '../service/userService.js';
+export const userRefreshController=async(req,res)=>{
+    try{
+
+        const refreshToken =req.headers.token.split(' ')[1]
+        console.log("TEST REFRESHToken",refreshToken)
+        if(refreshToken){
+            const response = await RefreshService(refreshToken)
+            return res.json(response)
+        }else{
+            return res.json({
+                status :'err',
+                message: 'refreshToken is not valid '
+            })
+        }
+    
+       }catch(err){
+        console.log(err)
+        return res.json({
+            status:'err',
+            message:err
+        })
+       }
+}
 export const detetesAllUserController=async(req,res)=>{
     const {id} =req.query
     try{
