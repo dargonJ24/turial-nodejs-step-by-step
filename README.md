@@ -14,8 +14,10 @@ II/Libaray
 - npm i dotenv
 - npm i bcrypt
 - npm i jsonwebtoken
+- npm install nodemailer
 III/ problems
 - req.body {} : check lai express.json() , request must format json
+-  how set isAdmin can query user
 IV/ Summerary
 -  API : for example in restaurant , api role waiter , user through menu ( UI ) order food , after do , API will bring food to user
 - params : "user:id"
