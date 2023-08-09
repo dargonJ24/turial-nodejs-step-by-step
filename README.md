@@ -13,9 +13,12 @@ II/Libaray
 - npm i mongoose
 - npm i dotenv
 - npm i bcrypt
+- npm i jsonwebtoken
 III/ problems
 - req.body {} : check lai express.json() , request must format json
 IV/ Summerary
 -  API : for example in restaurant , api role waiter , user through menu ( UI ) order food , after do , API will bring food to user
 - params : "user:id"
 - query :"search?name="Jon"
+- Middleware : A software component that acts as a bridge between different parts of an application, facilitating communication and data processing.
+- jsonwebtoken : token similar  identify card use authencation when  acess resouces

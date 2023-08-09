@@ -14,6 +14,24 @@ const userSchema =new Schema({
         type:String,
         require:true,
         unique:true
-    }
-})
+    },
+    acces_token :{
+        type: String,
+        unique:true
+    },
+   refresh_token :{
+        type: String,
+        unique:true
+    },
+    isAdmin:{
+        type:Boolean,
+        unique:true,
+        default: false
+    },
+    
+        
+    
+},
+{timestamps:true}
+)
 export const User =mongoose.model('User',userSchema)

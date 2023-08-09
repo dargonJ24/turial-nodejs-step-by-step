@@ -1,5 +1,6 @@
 import {User} from '../models/userModel.js'
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken"
 export const deleteAllUserService=(ids)=>{
   return new Promise(async (resolve,reject)=>{
     try{
@@ -160,13 +161,11 @@ export const loginUserServie =({email,password})=>{
                 if(userDB){
                     if(checkpassword)
                    {
-                    console.log("login sucesss")
+                    const access_token=jwt.sign({isAdmin:userDB[0].isAdmin,_id : userDB[0]._id},'access_token',{expiresIn:'30m'})
+                    console.log(access_token)
                     resolve({
                         status:"OKE",
-                        data:{
-                           emal: userDB[0].email, 
-                            name: userDB[0].name
-                        }
+                        data:access_token
                     })
                    }
                  
